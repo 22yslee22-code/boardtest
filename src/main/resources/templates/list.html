@@ -1,37 +1,93 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>글목록</title>
-    <style>
-        table, tr, td, th {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>글 목록</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
 <body>
-<a href="/save">글쓰기</a>
-<a href="/">홈으로</a>
-<table>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성시간</th>
-        <th>조회수</th>
-    </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
-        <td>
-            <a th:text="${board.boardTitle}" th:href="@{|/${board.id}|}"></a>
-        </td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="${board.createdAt}"></td>
-        <td th:text="${board.boardHits}"></td>
-    </tr>
-</table>
+<header class="list-header">
+
+    <!-- 로그인 전 -->
+    <div class="login-menu" th:if="${session.loginId == null}">
+        <a th:href="@{/login(returnUrl='/list')}" class="write-btn">로그인</a>
+    </div>
+
+    <!-- 로그인 후 -->
+    <div class="login-menu" th:if="${session.loginId != null}">
+
+        <span th:text="|${session.loginId}님 환영합니다!|"></span>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" name="returnUrl" value="/list">  <!--로그아웃시 해당전화면 유지-->
+            <button type="submit" class="home-btn">
+                로그아웃
+            </button>
+        </form>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <!-- 페이지 제목 -->
+    <div class="page-heading">
+        <h1>글 목록</h1>
+        <p>등록된 게시글을 확인할 수 있습니다.</p>
+    </div>
+
+    <section class="board-card">
+
+        <!-- 기존 홈으로 / 글쓰기 기능 유지 -->
+        <div class="board-top">
+            <a th:href="@{/}" class="home-btn">← 홈으로</a>
+            <a th:href="@{/save}" class="write-btn">+ 글쓰기</a>
+        </div>
+
+        <!-- 기존 게시글 목록 유지 -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="board : ${boardList}">
+                    <td th:text="${board.id}"></td>
+                    <td class="title-cell">
+                        <a th:text="${board.boardTitle}"
+                           th:href="@{|/${board.id}|}"></a>
+                    </td>
+                    <td th:text="${board.boardWriter}"></td>
+                    <td th:text="${board.createdAt}"></td>
+                    <td th:text="${board.boardHits}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(boardList)}">
+                    <td colspan="5" class="empty-message">
+                        아직 등록된 게시글이 없습니다.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</main>
+
 </body>
 </html>

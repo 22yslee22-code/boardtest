@@ -2,19 +2,92 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>글 수정</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<form th:action="@{|/update/${board.id}|}" method="post" name="updateForm">
-    <input type="hidden" name="id" th:value="${board.id}">
-    writer: <input type="text" name="boardWriter" th:value="${board.boardWriter}" readonly><br>
-    title: <input type="text" name="boardTitle" th:value="${board.boardTitle}"><br>
-    pass: <input type="text" name="boardPass" id="board-pass"><br>
-    contents: <textarea name="boardContents" cols="30" rows="10" th:text="${board.boardContents}"></textarea><br>
-    <input type="button" value="수정" onclick="board_update()">
-</form>
-</body>
-<script th:inline="javascript">
+<main class="container">
+    <section class="board-card">
+
+        <form th:action="@{|/update/${board.id}|}"
+              method="post"
+              name="updateForm"
+              class="write-form">
+
+            <input type="hidden"
+                   name="id"
+                   th:value="${board.id}">
+
+            <!-- 제목 -->
+            <div class="form-group">
+                <label for="boardTitle">제목</label>
+                <input type="text"
+                       id="boardTitle"
+                       name="boardTitle"
+                       th:value="${board.boardTitle}"
+                       required>
+            </div>
+
+            <div class="form-row">
+
+                <!-- 작성자 (수정 불가) -->
+                <div class="form-group">
+                    <label for="boardWriter">작성자</label>
+                    <input type="text"
+                           id="boardWriter"
+                           name="boardWriter"
+                           th:value="${board.boardWriter}"
+                           readonly>
+                </div>
+
+
+                <!-- 비밀번호 -->
+<!--                <div class="form-group">
+                    <label for="board-pass">비밀번호 확인</label>
+                    <input type="password"
+                           id="board-pass"
+                           name="boardPass"
+                           placeholder="비밀번호를 입력해 주세요"
+                           autocomplete="off"
+                           required>
+                </div>-->
+
+            </div>
+
+            <!-- 내용 -->
+            <div class="form-group">
+                <label for="boardContents">내용</label>
+                <textarea id="boardContents"
+                          name="boardContents"
+                          rows="10"
+                          th:text="${board.boardContents}"
+                          required></textarea>
+            </div>
+
+            <!-- 하단 버튼 -->
+            <div class="form-actions">
+                <a th:href="@{|/${board.id}|}"
+                   class="home-btn">
+                    ← 취소
+                </a>
+
+                <button type="submit" class="write-btn">
+                    수정 완료
+                </button>
+                <!--<button type="button"
+                        class="write-btn"
+                        onclick="board_update()">
+                    수정 완료
+                </button>-->
+            </div>
+
+        </form>
+
+    </section>
+
+<!--<script th:inline="javascript">
     /*비밀번호 검증*/
     const board_update = () => {
         const boardPass = document.getElementById("board-pass").value;
@@ -25,5 +98,7 @@
             alert("비밀번호가 틀립니다!!");
         }
     }
-</script>
+</script>-->
+
+</main>
 </html>

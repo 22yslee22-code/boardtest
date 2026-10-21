@@ -4,13 +4,19 @@
 
 <mapper namespace="Board">
     <!--게시물 저장-->
-    <insert id="save" parameterType="board">  <!--파라미터타입(board) = BoardDTO-->
+    <insert id="save" parameterType="board">
+        INSERT INTO board_table
+        (boardTitle, boardWriter, boardContents)
+        VALUES
+        (#{boardTitle}, #{boardWriter}, #{boardContents})
+    </insert>
+<!--    <insert id="save" parameterType="board">
         insert into board_table(boardTitle, boardWriter, boardPass, boardContents)
         values (#{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
-    </insert>
+    </insert>-->
 
 
-    <insert id="store" parameterType="board">
+    <insert id="store" parameterType="board"> <!--파라미터타입(board) = BoardDTO-->
         insert into board_table(boardTitle, boardWriter, boardContents)
         values (#{boardTitle}, #{boardWriter}, #{boardContents})
 

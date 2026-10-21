@@ -2,19 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>글작성</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<a href="/list">뒤로가기</a>
-<form action="/save" method="post" >
-    제목: <input type="text" name="boardTitle"><br>
-    작성자: <input type="text" name="boardWriter"><br>
-    비밀번호: <input type="text" name="boardPass"><br>
-    내용: <textarea name="boardContents" cols="30" rows="10"></textarea>
-    <br>
-    <input type="submit" value="작성">
+<main class="container">
 
-</form>
+    <section class="page-heading">
+        <h1>게시글 작성</h1>
+    </section>
+
+    <section class="board-card">
+
+        <form th:action="@{/save}" method="post"
+              class="write-form">
+
+            <div class="form-group">
+                <label for="boardTitle">제목</label>
+                <input type="text"
+                       id="boardTitle"
+                       name="boardTitle"
+                       placeholder="제목을 입력해 주세요"
+                       required>
+            </div>
+
+<!--            <div class="form-row">-->
+
+<!--                <div class="form-group">-->
+<!--                    <label for="boardWriter">작성자</label>-->
+<!--                    <input type="text"-->
+<!--                           id="boardWriter"-->
+<!--                           name="boardWriter"-->
+<!--                           placeholder="이름을 입력해 주세요"-->
+<!--                           required>-->
+<!--                </div>-->
+
+<!--                <div class="form-group">-->
+<!--                    <label for="boardPass">비밀번호</label>-->
+<!--                    <input type="password"-->
+<!--                           id="boardPass"-->
+<!--                           name="boardPass"-->
+<!--                           placeholder="비밀번호 입력"-->
+<!--                           autocomplete="off"-->
+<!--                           required>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+            <div class="form-group">
+                <label for="boardContents">내용</label>
+                <textarea id="boardContents"
+                          name="boardContents"
+                          rows="10"
+                          placeholder="내용을 입력해 주세요..."
+                          required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a th:href="@{/list}" class="home-btn">
+                    ← 목록
+                </a>
+
+                <button type="submit" class="write-btn">
+                    등록
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
 
 </body>
 </html>

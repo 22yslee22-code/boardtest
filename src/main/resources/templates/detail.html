@@ -2,48 +2,88 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>detail</title>
-    <style>
-        table, tr, td, th {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 <body>
-<table>
-    <tr>
-        <th>id</th>
-        <td th:text="${board.id}"></td>
-    </tr>
-    <tr>
-        <th>title</th>
-        <td th:text="${board.boardTitle}"></td>
-    </tr>
-    <tr>
-        <th>writer</th>
-        <td th:text="${board.boardWriter}"></td>
-    </tr>
-    <tr>
-        <th>date</th>
-        <td th:text="${board.createdAt}"></td>
-    </tr>
-    <tr>
-        <th>hits</th>
-        <td th:text="${board.boardHits}"></td>
-    </tr>
-    <tr>
-        <th>contents</th>
-        <td th:text="${board.boardContents}"></td>
-    </tr>
+<main class="container">
 
-</table>
-<button onclick="listReq()">목록</button>
-<button onclick="updateReq()">수정</button>
-<button onclick="deleteReq()">삭제</button>
+    <article class="board-card detail-card">
+
+        <!-- 게시글 제목 및 정보 -->
+        <div class="detail-header">
+            <span class="detail-number"
+                  th:text="|게시글 #${board.id}|"></span>
+
+            <h2 th:text="${board.boardTitle}"></h2>
+
+            <div class="detail-meta">
+                <span th:text="${board.boardWriter}"></span>
+                <span th:text="${board.createdAt}"></span>
+                <span th:text="|조회수 ${board.boardHits}|"></span>
+            </div>
+        </div>
+
+        <!-- 게시글 내용 -->
+        <div class="detail-content"
+             th:text="${board.boardContents}">
+        </div>
+
+        <!-- 기존 버튼 및 이동 경로 유지 -->
+        <div class="detail-actions">
+            <button type="button"
+                    class="home-btn"
+                    onclick="listReq()">
+                ← 목록
+            </button>
+
+
+            <!-- 내가 작성한 글일 때만 수정/삭제 버튼 표시 -->
+            <div th:if="${session.loginId != null and session.loginId == board.boardWriter}">
+
+                <!-- 수정 버튼 -->
+                <a th:href="@{|/update/${board.id}|}"
+                   class="write-btn">
+                    수정
+                </a>
+
+                <!-- 삭제 버튼 -->
+                <form th:action="@{|/delete/${board.id}|}"
+                      method="post"
+                      style="display:inline;">
+                    <button type="submit"
+                            class="home-btn"
+                            onclick="return confirm('정말 삭제하시겠습니까?');">
+                        삭제
+                    </button>
+                </form>
+
+            </div>
+
+
+
+            <!--            <div class="detail-action-right">
+                            <button type="button"
+                                    class="home-btn"
+                                    onclick="updateReq()">
+                                수정
+                            </button>
+
+                            <button type="button"
+                                    class="delete-btn"
+                                    onclick="deleteReq()">
+                                삭제
+                            </button>-->
+            </div>
+        </div>
+
+    </article>
+
+</main>
 </body>
 <script th:inline="javascript">
     const listReq = () => {

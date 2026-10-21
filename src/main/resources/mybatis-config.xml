@@ -4,6 +4,7 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.board2.boardtest.dto.BoardDTO" alias="board"/>
+        <typeAlias type="com.board2.boardtest.dto.UserDTO" alias="user"/>
 
     </typeAliases>
 </configuration>

@@ -1,0 +1,538 @@
+
+/* 1. 기본 설정 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f6f7f9;
+    color: #252b37;
+    font-family: Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 2. 상단 메뉴 */
+.header {
+    background-color: white;
+    border-bottom: 1px solid #e9edf2;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 22px 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #181c26;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    font-size: 14px;
+    color: #667085;
+}
+
+nav a:hover,
+nav a.active {
+    color: #181c26;
+    font-weight: 600;
+}
+
+/* 3. 전체 콘텐츠 영역 */
+.container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 24px;
+}
+
+.page-heading {
+    margin-bottom: 30px;
+}
+
+.page-heading h1 {
+    font-size: 32px;
+    margin: 0 0 12px;
+}
+
+.page-heading p {
+    font-size: 15px;
+    color: #667085;
+    margin: 0;
+}
+
+/* 4. 게시판 카드 */
+.board-card {
+    background-color: white;
+    border: 1px solid #e9edf2;
+    border-radius: 14px;
+    padding: 30px;
+}
+
+.board-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.board-top h2 {
+    font-size: 19px;
+    margin: 0;
+}
+
+/* 5. 글쓰기 버튼 */
+.write-btn {
+    background-color: #181c26;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.write-btn:hover {
+    background-color: #3b4559;
+}
+
+/* 6. 테이블 */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fb;
+    color: #667085;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 16px;
+    border-bottom: 1px solid #e9edf2;
+}
+
+td {
+    padding: 20px 16px;
+    font-size: 14px;
+    color: #667085;
+    border-bottom: 1px solid #eef0f3;
+}
+
+tbody tr:hover {
+    background-color: #fafbfc;
+}
+
+/* 방문하지 않은 게시글 */
+.title-cell a:link {
+    color: #252b37;
+    font-weight: 600;
+}
+
+/* 이미 방문했던 게시글 */
+.title-cell a:visited {
+    color: #9b8ac4;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 60px 0;
+    color: #98a2b3;
+}
+
+/* 7. 하단 */
+.board-bottom {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #98a2b3;
+}
+
+/* 8. 작은 화면 대응 */
+@media (max-width: 600px) {
+    .container {
+        margin: 30px auto;
+    }
+
+    .board-card {
+        padding: 18px;
+    }
+
+    .page-heading h1 {
+        font-size: 26px;
+    }
+
+    th, td {
+        padding: 12px 10px;
+        white-space: nowrap;
+    }
+}
+
+
+/* 홈으로, 글쓰기 버튼 영역 */
+.board-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* 홈으로 버튼 */
+.home-btn {
+    color: #667085;
+    background-color: #f3f4f6;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.home-btn:hover {
+    background-color: #e5e7eb;
+    color: #181c26;
+}
+
+
+/* =============================
+   HOME 화면 디자인
+============================= */
+
+/* 홈 화면 전체 영역 */
+.home-container {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 24px;
+}
+
+/* 가운데 흰색 카드 */
+.home-card {
+    background-color: white;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    padding: 90px 30px;
+
+    text-align: center;
+}
+
+
+/* 메인 제목 */
+.home-card h1 {
+    font-size: 36px;
+    color: #181c26;
+    margin: 28px 0 18px;
+}
+
+
+
+/* 버튼 영역 */
+.home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* 홈 화면의 버튼 크기 */
+.home-actions .write-btn,
+.home-actions .home-btn {
+    display: inline-block;
+    padding: 15px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+    .home-container {
+        margin: 30px auto;
+    }
+
+    .home-card {
+        padding: 55px 20px;
+    }
+
+    .home-card h1 {
+        font-size: 27px;
+    }
+
+    .home-actions {
+        flex-direction: column;
+    }
+}
+
+
+/* ==============================
+   글쓰기 화면 (SAVE)
+============================== */
+
+/* 입력 폼 전체 */
+.write-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* 입력 항목 하나의 영역 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+/* 제목, 작성자 같은 라벨 */
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #344054;
+}
+
+/* 입력창과 내용 작성창 */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background-color: white;
+    color: #252b37;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+/* 클릭해서 입력할 때 */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #64748b;
+    box-shadow: 0 0 0 3px #e9edf2;
+}
+
+/* 입력 예시 문구 */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+/*!* 작성자와 비밀번호 나란히 *!
+.form-row {
+    display: flex;
+    gap: 20px;
+}*/
+
+/* 내용 입력창 */
+.form-group textarea {
+    resize: vertical;
+    min-height: 200px;
+    line-height: 1.7;
+}
+
+/* 하단 버튼 영역 */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e9edf2;
+    padding-top: 24px;
+}
+
+/* 기존 링크 버튼 스타일을 submit 버튼에도 적용 */
+.form-actions .write-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-actions {
+        gap: 12px;
+    }
+}
+
+
+
+/* ==========================
+   게시글 상세 화면 (DETAIL)
+========================== */
+
+/* 상세 카드 */
+.detail-card {
+    padding: 40px;
+}
+
+/* 게시글 번호 */
+.detail-number {
+    font-size: 13px;
+    color: #98a2b3;
+}
+
+/* 게시글 제목 */
+.detail-header h2 {
+    font-size: 26px;
+    color: #181c26;
+    margin: 15px 0 20px;
+}
+
+/* 작성자, 작성시간, 조회수 */
+.detail-meta {
+    display: flex;
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #667085;
+}
+
+/* 게시글 본문 */
+.detail-content {
+    min-height: 250px;
+    padding: 35px 0;
+    margin-top: 30px;
+
+    border-top: 1px solid #e9edf2;
+    border-bottom: 1px solid #e9edf2;
+
+    font-size: 15px;
+    line-height: 1.9;
+    color: #344054;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* 하단 버튼 영역 */
+.detail-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+/* 수정, 삭제 버튼 묶음 */
+.detail-action-right {
+    display: flex;
+    gap: 10px;
+}
+
+/* 버튼 공통 설정 */
+.detail-actions button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* 기존 home-btn을 button에서도 사용 */
+.detail-actions .home-btn {
+    display: inline-block;
+}
+
+/* 삭제 버튼 */
+.delete-btn {
+    background-color: #fff5f5;
+    color: #b42318;
+    padding: 12px 20px;
+    border: 1px solid #fecdca !important;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.delete-btn:hover {
+    background-color: #fee4e2;
+}
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+    .detail-card {
+        padding: 22px;
+    }
+
+    .detail-header h2 {
+        font-size: 22px;
+    }
+
+    .detail-meta {
+        gap: 10px;
+    }
+}
+
+
+/*로그인*/
+.login-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-menu span {
+    font-size: 24px;
+    color: #344054;
+}
+
+/*
+.login-menu form {
+    margin: 10;
+}
+*/
+
+.login-menu button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+
+/* 글 목록 페이지 최상단 */
+.list-header {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;
+    padding: 20px 40px;
+}
+
+/* 로그인 메뉴 */
+.list-header .login-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 환영 문구 */
+.list-header .login-menu span {
+    font-size: 14px;
+    color: #344054;
+}
+
+/* 로그아웃 폼 여백 제거 */
+.list-header .login-menu form {
+    margin: 0;
+}

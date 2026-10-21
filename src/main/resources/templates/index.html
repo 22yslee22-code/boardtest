@@ -2,12 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>게시판 메인 화면</title>
+    <title>게시판 | HOME</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>게시판 화면</h2>
-<a href="/save">글작성</a>
-<a href="/list">글목록</a>
+
+<!-- 상단 메뉴 -->
+<header class="header">
+    <div class="header-inner">
+        <span class="logo">My Board.</span>
+    </div>
+
+
+
+</header>
+
+<!-- 홈 화면 -->
+<main class="home-container">
+
+    <section class="home-card">
+
+
+        <h1>게시판 Home</h1>
+
+        <!-- 로그인 전 -->
+        <div class="login-menu" th:if="${session.loginId == null}">
+
+            <a th:href="@{/signup}" class="home-btn">회원가입</a>
+            <a th:href="@{/login}" class="write-btn">로그인</a>
+
+        </div>
+
+        <!-- 로그인 후 -->
+        <div class="login-menu"
+             th:if="${session.loginId != null}">
+
+            <span th:text="|${session.loginId}님 환영합니다!|"></span>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="home-btn">로그아웃</button>
+            </form>
+
+        </div>
+
+        <div class="home-actions">
+
+            <!-- 글쓰기 로그인했을 때 -->
+            <a th:if="${session.loginId != null}"
+               th:href="@{/save}"
+               class="write-btn">
+                + 글 작성하기
+            </a>
+
+            <!-- 글쓰기 로그인하지 않았을 때 -->
+            <a th:if="${session.loginId == null}"
+               href="#"
+               class="write-btn"
+               onclick="alert('로그인이 필요합니다.'); return false;">
+                + 글 작성하기
+            </a>
+
+            <a th:href="@{/list}" class="home-btn">
+                글 목록 보기 →
+            </a>
+        </div>
+
+    </section>
+
+</main>
 
 </body>
 </html>
