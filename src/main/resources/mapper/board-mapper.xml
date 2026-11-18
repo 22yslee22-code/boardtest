@@ -28,6 +28,14 @@
         from board_table order by id desc;
     </select>
 
+    <!-- 검색어의 !, %, _를 문자 그대로 비교하고 양쪽에만 와일드카드를 붙인다. -->
+    <select id="findByTitle" parameterType="string" resultType="board">
+        select id, boardTitle, boardWriter, boardHits, to_char(createdAt, 'YYYY-MM-DD') as "createdAt"
+        from board_table
+        where boardTitle ilike ('%' || replace(replace(replace(#{keyword}, '!', '!!'), '%', '!%'), '_', '!_') || '%') escape '!'
+        order by id desc
+    </select>
+
 
     <!--게시물 조회수 업데이트-->
     <update id="updateHits" parameterType="Long">

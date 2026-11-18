@@ -28,7 +28,7 @@ public class UserService {
 
         // DB에서 입력한 아이디 조회
         UserDTO user = userRepository.findById(userDTO.getUserId());
-
+        System.out.println(user); // 테스트 출력 ToString()
         // 아이디가 없으면 실패
         if (user == null) {
             return false;

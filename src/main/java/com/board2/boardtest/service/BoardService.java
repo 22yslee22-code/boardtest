@@ -22,6 +22,11 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
+    // 제목에 검색어가 포함된 게시글 목록을 조회한다.
+    public List<BoardDTO> findByTitle(String keyword) {
+        return boardRepository.findByTitle(keyword);
+    }
+
     // 조회수
     public void updateHits(Long id) {
         boardRepository.updateHits(id); // id를 같이 넘김

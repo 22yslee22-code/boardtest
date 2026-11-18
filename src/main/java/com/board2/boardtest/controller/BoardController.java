@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -70,9 +71,14 @@ public class BoardController {
 
     // 글 목록 조회
     @GetMapping("/list")
-    public String findAll(Model model) {
-        List<BoardDTO> boardDTOList = boardService.findAll();
+    public String findAll(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
+        String searchKeyword = keyword.strip();
+        // 검색어가 비어 있으면 기존 전체 목록을 조회한다.
+        List<BoardDTO> boardDTOList = searchKeyword.isEmpty()
+                ? boardService.findAll()
+                : boardService.findByTitle(searchKeyword);
         model.addAttribute("boardList", boardDTOList);
+        model.addAttribute("keyword", searchKeyword);
         System.out.println("boardDTOList = " + boardDTOList); // 출력 확인
         return "list";
     }

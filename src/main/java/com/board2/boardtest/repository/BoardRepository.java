@@ -24,6 +24,11 @@ public class BoardRepository {
         return sql.selectList("Board.findAll");
     }
 
+    // XML 매퍼의 제목 검색 쿼리에 검색어를 전달한다.
+    public List<BoardDTO> findByTitle(String keyword) {
+        return sql.selectList("Board.findByTitle", keyword);
+    }
+
     public void updateHits(Long id) {
 
         sql.update("Board.updateHits", id); // 조회수 업데이트 쿼리 수행

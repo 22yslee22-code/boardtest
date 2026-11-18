@@ -213,6 +213,73 @@ tbody tr:hover {
     color: #181c26;
 }
 
+/* 글 목록의 검색창과 표 */
+.board-list-card .board-top,
+.board-search {
+    margin-bottom: 16px;
+}
+
+.board-search {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.board-search input,
+.board-search button {
+    min-height: 44px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.board-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 16px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background-color: white;
+    color: #252b37;
+}
+
+.board-search input::placeholder {
+    color: #667085;
+}
+
+.board-search input:focus {
+    outline: none;
+    border-color: #64748b;
+    box-shadow: 0 0 0 3px #e9edf2;
+}
+
+.board-search button {
+    flex-shrink: 0;
+    padding-block: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.board-list-card th,
+.board-list-card td {
+    white-space: nowrap;
+}
+
+.board-list-card .board-title-column {
+    width: 100%;
+}
+
+.board-list-card .title-cell {
+    min-width: 8em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.board-list-card .empty-message {
+    padding: 40px 16px;
+    white-space: normal;
+}
+
 
 /* =============================
    HOME 화면 디자인
