@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.stream.LongStream;
 
 @Controller
 @RequiredArgsConstructor //생성자 생성을 위한 어노테이션
@@ -71,27 +71,36 @@ public class BoardController {
 
     // 글 목록 조회
     @GetMapping("/list")
-    public String findAll(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
+    public String findAll(@RequestParam(name = "keyword", defaultValue = "") String keyword,
+                          @RequestParam(name = "page", defaultValue = "1") long page, Model model) {
         String searchKeyword = keyword.strip();
-        // 검색어가 비어 있으면 기존 전체 목록을 조회한다.
-        List<BoardDTO> boardDTOList = searchKeyword.isEmpty()
-                ? boardService.findAll()
-                : boardService.findByTitle(searchKeyword);
-        model.addAttribute("boardList", boardDTOList);
+        BoardService.BoardPage boardPage = boardService.findPage(searchKeyword, page);
+        // 현재 페이지 근처의 번호만 표시해 페이지 이동 영역을 짧게 유지한다.
+        long firstPage = Math.max(1, Math.min(boardPage.page() - 2, boardPage.totalPages() - 4));
+        long lastPage = Math.min(boardPage.totalPages(), firstPage + 4);
+        model.addAttribute("boardList", boardPage.posts());
         model.addAttribute("keyword", searchKeyword);
-        System.out.println("boardDTOList = " + boardDTOList); // 출력 확인
+        model.addAttribute("page", boardPage.page());
+        model.addAttribute("totalPages", boardPage.totalPages());
+        model.addAttribute("totalCount", boardPage.totalCount());
+        model.addAttribute("pageNumbers", LongStream.rangeClosed(firstPage, lastPage).boxed().toList());
         return "list";
     }
 
     // 게시글 조회
     @GetMapping("/{id:\\d+}") // 글번호는 계속 달라지기 때 문에 {}중괄호
-    public String findById(@PathVariable("id") Long id, Model model) {
+    public String findById(@PathVariable("id") Long id,
+                           @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                           @RequestParam(name = "page", defaultValue = "1") long page, Model model) {
         // 조회수 카운트 처리
         boardService.updateHits(id);
 
         //게시물 상세내용 가져옴
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+        // 상세 화면의 목록 링크에 검색어와 페이지를 전달한다.
+        model.addAttribute("keyword", keyword.strip());
+        model.addAttribute("page", Math.max(1, page));
         return "detail";
     }
 

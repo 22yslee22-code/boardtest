@@ -35,11 +35,7 @@
 
         <!-- 기존 버튼 및 이동 경로 유지 -->
         <div class="detail-actions">
-            <button type="button"
-                    class="home-btn"
-                    onclick="listReq()">
-                ← 목록
-            </button>
+            <a class="home-btn" th:href="@{/list(keyword=${keyword},page=${page})}">← 목록으로</a>
 
 
             <!-- 내가 작성한 글일 때만 수정/삭제 버튼 표시 -->
@@ -86,9 +82,6 @@
 </main>
 </body>
 <script th:inline="javascript">
-    const listReq = () => {
-        location.href = "/list";
-    }
     const updateReq = () => {
         location.href = `/update/[[${board.id}]]`;
     }

@@ -22,18 +22,25 @@
 
     </insert>
 
-<!--   게시물 목록 불러오기-->
-    <select id="findAll" resultType="board">
-        select id, boardTitle, boardWriter, boardHits, to_char(createdAt, 'YYYY-MM-DD') as "createdAt"
-        from board_table order by id desc;
+    <!-- 결과 건수와 페이지 조회에 같은 제목 검색 조건을 적용한다. -->
+    <sql id="titleFilter">
+        <if test="keyword != ''">
+            <!-- 검색어의 !, %, _를 문자 그대로 비교한다. -->
+            where boardTitle ilike ('%' || replace(replace(replace(#{keyword}, '!', '!!'), '%', '!%'), '_', '!_') || '%') escape '!'
+        </if>
+    </sql>
+
+    <select id="countPosts" parameterType="map" resultType="long">
+        select count(*) from board_table
+        <include refid="titleFilter"/>
     </select>
 
-    <!-- 검색어의 !, %, _를 문자 그대로 비교하고 양쪽에만 와일드카드를 붙인다. -->
-    <select id="findByTitle" parameterType="string" resultType="board">
+    <select id="findPage" parameterType="map" resultType="board">
         select id, boardTitle, boardWriter, boardHits, to_char(createdAt, 'YYYY-MM-DD') as "createdAt"
         from board_table
-        where boardTitle ilike ('%' || replace(replace(replace(#{keyword}, '!', '!!'), '%', '!%'), '_', '!_') || '%') escape '!'
+        <include refid="titleFilter"/>
         order by id desc
+        limit #{limit} offset #{offset}
     </select>
 
 

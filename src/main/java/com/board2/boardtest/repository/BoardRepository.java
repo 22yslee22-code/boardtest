@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -19,14 +20,12 @@ public class BoardRepository {
         sql.insert("Board.save", boardDTO);
     }
 
-    public List<BoardDTO> findAll() {
-
-        return sql.selectList("Board.findAll");
+    public long countPosts(String keyword) {
+        return sql.selectOne("Board.countPosts", Map.of("keyword", keyword));
     }
 
-    // XML 매퍼의 제목 검색 쿼리에 검색어를 전달한다.
-    public List<BoardDTO> findByTitle(String keyword) {
-        return sql.selectList("Board.findByTitle", keyword);
+    public List<BoardDTO> findPage(String keyword, int limit, long offset) {
+        return sql.selectList("Board.findPage", Map.of("keyword", keyword, "limit", limit, "offset", offset));
     }
 
     public void updateHits(Long id) {

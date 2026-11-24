@@ -280,6 +280,83 @@ tbody tr:hover {
     white-space: normal;
 }
 
+.board-search-summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: #667085;
+    font-size: 14px;
+}
+
+.board-search-summary p {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.board-search-summary a {
+    flex-shrink: 0;
+    color: #344054;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.board-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 24px;
+}
+
+.board-pagination a,
+.board-pagination [aria-current="page"] {
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: #f3f4f6;
+    font-size: 14px;
+}
+
+.board-pagination a:hover {
+    background-color: #e5e7eb;
+}
+
+.board-pagination [aria-current="page"] {
+    background-color: #181c26;
+    color: white;
+    font-weight: 600;
+}
+
+.board-mobile-meta {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .board-list-card th:not(.board-title-column),
+    .board-list-card td:not(.title-cell, .empty-message) {
+        display: none;
+    }
+
+    .board-list-card .title-cell {
+        min-width: 0;
+        padding: 14px 10px;
+    }
+
+    .board-mobile-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 10px;
+        margin-top: 6px;
+        color: #667085;
+        font-size: 12px;
+    }
+}
+
 
 /* =============================
    HOME 화면 디자인

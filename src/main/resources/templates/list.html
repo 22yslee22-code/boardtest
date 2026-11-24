@@ -58,6 +58,11 @@
             <button type="submit" class="home-btn">검색</button>
         </form>
 
+        <div class="board-search-summary" th:if="${!#strings.isEmpty(keyword)}">
+            <p th:text="|‘${keyword}’ 검색 결과 ${totalCount}건|"></p>
+            <a th:href="@{/list}">검색 초기화</a>
+        </div>
+
         <!-- 기존 게시글 목록 유지 -->
         <div class="table-wrapper">
             <table>
@@ -76,7 +81,12 @@
                     <td th:text="${board.id}"></td>
                     <td class="title-cell">
                         <a th:text="${board.boardTitle}"
-                           th:href="@{|/${board.id}|}"></a>
+                           th:href="@{/{id}(id=${board.id},keyword=${keyword},page=${page})}"></a>
+                        <div class="board-mobile-meta">
+                            <span th:text="${board.boardWriter}"></span>
+                            <span th:text="${board.createdAt}"></span>
+                            <span th:text="|조회수 ${board.boardHits}|"></span>
+                        </div>
                     </td>
                     <td th:text="${board.boardWriter}"></td>
                     <td th:text="${board.createdAt}"></td>
@@ -92,6 +102,19 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- 페이지를 이동할 때 현재 검색어를 유지한다. -->
+        <nav class="board-pagination" th:if="${totalPages > 1}" aria-label="목록 페이지">
+            <a th:if="${page > 1}" th:href="@{/list(keyword=${keyword},page=${page - 1})}"
+               rel="prev">이전</a>
+            <th:block th:each="pageNumber : ${pageNumbers}">
+                <span th:if="${pageNumber == page}" aria-current="page" th:text="${pageNumber}"></span>
+                <a th:unless="${pageNumber == page}" th:href="@{/list(keyword=${keyword},page=${pageNumber})}"
+                   th:text="${pageNumber}"></a>
+            </th:block>
+            <a th:if="${page < totalPages}" th:href="@{/list(keyword=${keyword},page=${page + 1})}"
+               rel="next">다음</a>
+        </nav>
 
     </section>
 

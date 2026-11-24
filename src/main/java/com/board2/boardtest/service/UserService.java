@@ -24,7 +24,7 @@ public class UserService {
     }
 
     /* 로그인*/
-    public boolean login(UserDTO userDTO) {
+     public boolean login(UserDTO userDTO) {
 
         // DB에서 입력한 아이디 조회
         UserDTO user = userRepository.findById(userDTO.getUserId());
