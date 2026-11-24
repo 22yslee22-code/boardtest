@@ -1,27 +1,8 @@
 package com.board2.boardtest.repository;
 
-import com.board2.boardtest.dto.UserDTO;
-import lombok.RequiredArgsConstructor;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
+import com.board2.boardtest.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
-
-    private final SqlSessionTemplate sql; //맵퍼호출
-
-
-    // 회원가입
-    public void save(UserDTO userDTO) {
-        sql.insert("User.save", userDTO);
-    }
-
-    // 회원 중복 확인
-    public UserDTO findById(String userId) {
-        return sql.selectOne("User.findById", userId);
-    }
-
-
-
+// User Entity를 관리하며, 기본키인 userId의 Java 타입은 String이다.
+public interface UserRepository extends JpaRepository<User, String> {
 }
