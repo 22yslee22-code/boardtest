@@ -185,8 +185,6 @@ public class BoardController {
     }*/
 
     // 게시글 삭제
-
-    // 게시글 삭제
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id, HttpSession session) {
 

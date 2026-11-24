@@ -28,12 +28,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	// mybatis
-	//implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     // JPA: Entity와 Repository를 사용해 DB에 접근한다.
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // MyBatis: JPA로 옮기는 동안 기존 DB 기능을 실행한다.
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // MyBatis 학습 기록: 회원과 게시글을 JPA로 전환하여 기존 의존성을 비활성화한다.
+    // implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
 	// DB
 	runtimeOnly 'org.postgresql:postgresql'

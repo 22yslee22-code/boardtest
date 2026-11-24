@@ -22,7 +22,8 @@ spring:
      open-in-view: false
 
 
-# mybatis
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  config-location: classpath:mybatis-config.xml
+# MyBatis 학습 기록: DB 접근을 JPA로 전환하여 기존 매퍼 설정을 비활성화한다.
+# XML 원문은 .xml.txt 확장자로 보관한다.
+# mybatis:
+#   mapper-locations: classpath:mapper/*.xml
+#   config-location: classpath:mybatis-config.xml
